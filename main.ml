@@ -7,7 +7,7 @@ let lexbuf = if (argc == 2) then let file = open_in Sys.argv.(1) in Lexing.from_
 Lexing.from_channel stdin in (*lexeur lancé sur stdin*)
 while true do (*on ne s'arrête pas*)
 Parseur.main Lexeur.token lexbuf (*parseur une ligne*)
-|> Printf.printf "%i\n%!";
+|> Printf.printf "%F\n%!";
 done
 with
 | End_of_file -> close_in (open_in Sys.argv.(1))
