@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-%token NOMBRE PLUS MOINS FOIS GPAREN DPAREN PT_VIRG
-%type <unit> main expression terme facteur
-=======
 %token NOMBRE PLUS MOINS FOIS GPAREN DPAREN PT_VIRG
 %left PLUS MOINS
 %left FOIS
