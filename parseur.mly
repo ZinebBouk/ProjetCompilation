@@ -5,7 +5,7 @@ open AST
 %token <float> NOMBRE
 %token PLUS MOINS FOIS GPAREN DPAREN PT_VIRG MODULO
 %left PLUS MOINS
-%left FOIS
+%left FOIS MODULO
 %nonassoc UMOINS
 %type <AST.expression_a> main expression
 %start main
