@@ -1,6 +1,6 @@
 %token NOMBRE PLUS MOINS FOIS GPAREN DPAREN PT_VIRG MODULO
 %left PLUS MOINS
-%left FOIS
+%left FOIS MODULO
 %nonassoc UMOINS
 %type <unit> main expression
 %start main
