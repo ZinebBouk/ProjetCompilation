@@ -1,8 +1,10 @@
+
 type expression_a =
     | Plus  of expression_a * expression_a
     | Moins of expression_a * expression_a
     | Mult  of expression_a * expression_a
     | Div   of expression_a * expression_a
+    | Mod   of  expression_a * expression_a
     | Neg   of expression_a
     | Num   of int
 ;;
@@ -17,6 +19,43 @@ and print_AST form = let open Format in function
     | Moins (g,d) -> print_binaire form "Moins" g d
     | Mult  (g,d) -> print_binaire form "Mult" g d
     | Div   (g,d) -> print_binaire form "Div" g d
+    | Mod   (g,d) -> print_binaire form "Mod" g d
     | Neg    e    -> fprintf form "@[<2>%s@ %a@]" "Neg" print_AST e 
-    | Num    n    -> fprintf form "@[<2>%s@ %i@]" "Num" n
+    | Num    n    -> fprintf form "@[<2>%s@ %d@]" "Num" n
 ;; 
+
+(* Fonction pour l'assembleur*)
+let rec assembleur_AST form = match form with
+    | Plus  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"AddiNb"
+    | Num    n    -> "CstNb "^string_of_int n
+    | Moins (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"SubiNb"
+    | Mult  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"MultNb"
+    | Div  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"DiviNb"
+    | Mod  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"ModNb"
+    | Neg    e    -> (assembleur_AST e)^"\n"^"NegaNb"
+;; 
+
+(* Fonctions pour les calculs*)
+
+(*let print_result g d o = match o with
+    | "+." -> (g +. d)
+    | "-." -> (g -. d)
+    | "*." -> (g *. d)
+    | "/." -> (g /. d)
+    | "%." -> mod_float g d
+    | "-"  -> -. g
+    | _ -> 0.
+;;
+
+let rec resultat_AST form = match form with
+    | Num    n    -> n
+    | Plus  (g,d) -> print_result (resultat_AST g) (resultat_AST d) "+."
+    | Moins (g,d) -> print_result (resultat_AST g) (resultat_AST d) "-."
+    | Mult  (g,d) -> print_result (resultat_AST g) (resultat_AST d) "*."
+    | Div   (g,d) -> print_result (resultat_AST g) (resultat_AST d) "/."
+    | Mod   (g,d) -> print_result (resultat_AST g) (resultat_AST d) "%."
+    | Neg    e    -> print_result (resultat_AST e) (resultat_AST e) "-"*)
+;; 
+
+
+
