@@ -1,4 +1,3 @@
-
 type expression_a =
     | Plus  of expression_a * expression_a
     | Moins of expression_a * expression_a
@@ -6,7 +5,7 @@ type expression_a =
     | Div   of expression_a * expression_a
     | Mod   of  expression_a * expression_a
     | Neg   of expression_a
-    | Num   of int
+    | Num   of float
 ;;
 
 
@@ -21,13 +20,13 @@ and print_AST form = let open Format in function
     | Div   (g,d) -> print_binaire form "Div" g d
     | Mod   (g,d) -> print_binaire form "Mod" g d
     | Neg    e    -> fprintf form "@[<2>%s@ %a@]" "Neg" print_AST e 
-    | Num    n    -> fprintf form "@[<2>%s@ %d@]" "Num" n
+    | Num    n    -> fprintf form "@[<2>%s@ %F@]" "Num" n
 ;; 
 
 (* Fonction pour l'assembleur*)
 let rec assembleur_AST form = match form with
     | Plus  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"AddiNb"
-    | Num    n    -> "CstNb "^string_of_int n
+    | Num    n    -> "CstNb "^string_of_float n
     | Moins (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"SubiNb"
     | Mult  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"MultNb"
     | Div  (g,d) -> (assembleur_AST g)^"\n"^(assembleur_AST d)^"\n"^"DiviNb"
@@ -56,6 +55,4 @@ let rec resultat_AST form = match form with
     | Mod   (g,d) -> print_result (resultat_AST g) (resultat_AST d) "%."
     | Neg    e    -> print_result (resultat_AST e) (resultat_AST e) "-"*)
 ;; 
-
-
 
